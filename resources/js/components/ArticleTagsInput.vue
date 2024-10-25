@@ -31,7 +31,7 @@ import { ref, computed, onMounted } from 'vue';
 import Vue3TagsInput from 'vue3-tags-input';
 
 const vueTagsInputVersion = '1.0.12';  // 手動で設定したバージョン番号
-console.log(`vue3-tags-input version: ${vueTagsInputVersion}`);
+// console.log(`vue3-tags-input version: ${vueTagsInputVersion}`);
 
 export default {
   components: {
@@ -52,11 +52,11 @@ export default {
     const inputValue = ref('');
     const showAutocompleteList = ref(false);
 
-    console.log('Initial Props:', props.initialTags);
+    // console.log('Initial Props:', props.initialTags);
 
     // 初期タグの変換と設定
     tags.value = props.initialTags.map(tag => typeof tag === 'string' ? { text: tag } : tag);
-    console.log('初期タグ:', tags.value);
+    // console.log('初期タグ:', tags.value);
 
     const displayTags = computed(() => tags.value.map(tag => tag.text));
 
@@ -74,7 +74,7 @@ const filteredItems = computed(() => {
     const tagsJson = computed(() => JSON.stringify(tags.value.map(tag => tag.text)));
 
     const handleChangeTag = (newTags) => {
-      console.log('新しいタグ:', newTags);
+      // console.log('新しいタグ:', newTags);
       tags.value = newTags.map(tag => {
         if (typeof tag === 'object' && tag.text) {
           return tag;
@@ -85,12 +85,12 @@ const filteredItems = computed(() => {
         console.error('無効なタグデータ:', tag);
         return { text: '' };
       });
-      console.log('更新後のタグ:', tags.value);
+      // console.log('更新後のタグ:', tags.value);
       showAutocompleteList.value = false;
     };
 
     const handleInput = (event) => {
-      console.log('入力イベント:', event);
+      // console.log('入力イベント:', event);
       inputValue.value = event.target.value;
       showAutocompleteList.value = inputValue.value.length > 0;
     };
@@ -104,9 +104,9 @@ const filteredItems = computed(() => {
     };
 
     onMounted(() => {
-      console.log('コンポーネントが描画された後の状態');
-      console.log('初期タグ:', tags.value);
-      console.log('Display Tags:', displayTags.value);
+      // console.log('コンポーネントが描画された後の状態');
+      // console.log('初期タグ:', tags.value);
+      // console.log('Display Tags:', displayTags.value);
     });
 
     return {

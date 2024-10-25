@@ -24,11 +24,11 @@
                             @csrf
 
                             <div class="md-form">
-                                <label for="email">メールアドレス('ω')</label>
+                                <label for="email">メールアドレス</label>
                                 <input class="form-control" type="text" id="email" name="email" required>
                             </div>
 
-                        <button class="btn btn-block blue-gradient mt-2 mb-2" type="submit">メール送信(´・ω・｀)</button>
+                        <button class="btn btn-block blue-gradient mt-2 mb-2" type="submit">メール送信</button>
 
                         </form>
 

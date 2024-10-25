@@ -16,7 +16,7 @@
                             @method('PATCH')
                             
                             @include('articles.form')
-                            <button type="submit" class="btn blue-gradient btn-block">更新する(´ω`)</button>
+                            <button type="submit" class="btn blue-gradient btn-block">更新する</button>
                         </form>
                     </div>
                 </div>

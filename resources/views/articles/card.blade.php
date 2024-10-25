@@ -20,11 +20,11 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{ route('articles.edit', ['article' => $article]) }}">
-                        <i class="fas fa-pen mr-1"></i>記事を更新する(´ω`)
+                        <i class="fas fa-pen mr-1"></i>記事を更新する
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
-                        <i class="fas fa-trash-alt mr-1"></i>記事を削除する( ;∀;)
+                        <i class="fas fa-trash-alt mr-1"></i>記事を削除する
                     </a>
                 </div>
             </div>
@@ -44,10 +44,10 @@
                         @csrf
                         @method('DELETE')
                         <div class="modal-body">
-                            {{ $article->title }}を削除します。よろしいですか？(´;ω;`)
+                            {{ $article->title }}を削除します。よろしいですか？
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル(*´ω`*)</a>
+                            <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
                             <button type="submit" class="btn btn-danger">削除する</button>
                         </div>
                     </form>

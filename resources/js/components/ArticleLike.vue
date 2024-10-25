@@ -60,7 +60,7 @@ export default {//Vueコンポーネントのデフォルトエクスポート�
     },
     methods: {//コンポーネント内の「いいね」数を最新の値に更新する役割を果たします。これにより、ユーザーが行ったアクションが即座に反映され、インタラクティブな体験が提供
         clickLike() {//いいねボタンがクリックされたときに呼び出されるメソッド
-            console.log('clickLike');//console.log('clickLike');で、メソッドが呼ばれたことをコンソールに出力
+            // console.log('clickLike');//console.log('clickLike');で、メソッドが呼ばれたことをコンソールに出力
             if (!this.authorized) {//ユーザーが未ログインの場合、アラートを表示し、処理を中断
                 alert('いいね機能はログイン中のみ使用できます');
                 return;
