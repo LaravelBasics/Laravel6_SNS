@@ -15,8 +15,12 @@ class CreateFollowsTable extends Migration
     {
         Schema::create('follows', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('follower_id'); // ここで定義
-            $table->unsignedBigInteger('followee_id'); // ここで定義
+            // $table->unsignedBigInteger('follower_id'); // ここで定義
+            $table->bigInteger('follower_id'); // ここで定義
+
+            // $table->unsignedBigInteger('followee_id'); // ここで定義
+            $table->bigInteger('followee_id'); // ここで定義
+
             $table->timestamps();
 
             // 外部キー制約の設定

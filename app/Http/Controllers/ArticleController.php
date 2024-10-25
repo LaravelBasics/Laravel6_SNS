@@ -55,21 +55,38 @@ class ArticleController extends Controller
      *もし、プロパティ名が$fiilableプロパティ内に記述されていないと、MassAssignmentException(複数代入例外)が発生し、モデルの保存ができません
      */
 
-    public function store(ArticleRequest $request, Article $article)
-    {
-        Log::info('リクエストデータ:', $request->all());
-
-    $article->fill($request->all());
-    $article->user_id = $request->user()->id;
-    $article->save();
-    
-    Log::info('記事が保存されました。', ['article_id' => $article->id]);
-
-    $request->tags->each(function ($tagName) use ($article) {
-        $tag = Tag::firstOrCreate(['name' => $tagName]);
-        $article->tags()->attach($tag);
-        Log::info('タグが追加されました。', ['article_id' => $article->id, 'tag_name' => $tag->name]);
-    });
+     public function store(ArticleRequest $request, Article $article)
+     {
+         Log::info('リクエストデータ:', $request->all());
+     
+         // 記事のデータを保存
+         $article->fill($request->all());
+         $article->user_id = $request->user()->id;
+         $article->save();
+         
+         Log::info('記事が保存されました。', ['article_id' => $article->id]);
+     
+         // タグの処理
+         if ($request->tags) {
+             // JSON形式のタグをデコード
+             $tags = json_decode($request->tags);
+     
+             // タグが配列であることを確認
+             if (is_array($tags)) {
+                 collect($tags)->each(function ($tagName) use ($article) {
+                     // タグの作成または取得
+                     $tag = Tag::firstOrCreate(['name' => $tagName]);
+                     // 記事にタグを関連付け
+                     $article->tags()->attach($tag);
+                     Log::info('タグが追加されました。', ['article_id' => $article->id, 'tag_name' => $tag->name]);
+                 });
+             } else {
+                 Log::error("タグデータが正しい形式ではありません。");
+             }
+         } else {
+             Log::error("タグが提供されていません。");
+         }
+     
 
     return redirect()->route('articles.index');
     }

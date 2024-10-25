@@ -2,20 +2,9 @@
   <div class="tag-container">
     <div>
       <!-- ヒドゥンフィールドには文字列の配列形式で設定 -->
-      <input
-        type="hidden"
-        name="tags"
-        :value="tagsJson"
-      >
-      <vue3-tags-input
-        v-model="inputValue"
-        :tags="displayTags"
-        placeholder="タグを5個まで入力できます"
-        :add-on-key="[13, 32]"
-        :autocomplete-items="filteredItems"
-        @on-tags-changed="handleChangeTag"
-        @input="handleInput"
-      />
+      <input type="hidden" name="tags" :value="tagsJson">
+      <vue3-tags-input v-model="inputValue" :tags="displayTags" placeholder="タグを5個まで入力できます" :add-on-key="[13, 32]"
+        :autocomplete-items="filteredItems" @on-tags-changed="handleChangeTag" @input="handleInput" />
       <!-- 自動補完リストの表示 -->
       <ul v-if="showAutocompleteList" class="autocomplete-list">
         <li v-for="item in filteredItems" :key="item.text" @click="selectItem(item)">
@@ -60,21 +49,20 @@ export default {
 
     const displayTags = computed(() => tags.value.map(tag => tag.text));
 
-    
 
-const filteredItems = computed(() => {
-  const normalizedInput = inputValue.value.normalize('NFKC').toLowerCase();
-  return props.autocompleteItems.filter(item => {
-    return item.text.normalize('NFKC').toLowerCase().includes(normalizedInput) &&
-           !displayTags.value.includes(item.text);
-  });
-});
+
+    const filteredItems = computed(() => {
+      const normalizedInput = inputValue.value.normalize('NFKC').toLowerCase();
+      return props.autocompleteItems.filter(item => {
+        return item.text.normalize('NFKC').toLowerCase().includes(normalizedInput) &&
+          !displayTags.value.includes(item.text);
+      });
+    });
 
 
     const tagsJson = computed(() => JSON.stringify(tags.value.map(tag => tag.text)));
 
     const handleChangeTag = (newTags) => {
-      // console.log('新しいタグ:', newTags);
       tags.value = newTags.map(tag => {
         if (typeof tag === 'object' && tag.text) {
           return tag;
@@ -84,8 +72,7 @@ const filteredItems = computed(() => {
         }
         console.error('無効なタグデータ:', tag);
         return { text: '' };
-      });
-      // console.log('更新後のタグ:', tags.value);
+      }).filter(tag => tag.text.trim() !== ''); // 空のタグをフィルタリング
       showAutocompleteList.value = false;
     };
 
@@ -124,9 +111,9 @@ const filteredItems = computed(() => {
 };
 </script>
 <style lang="css" scoped>
-  .vue3-tags-input {
-    max-width: inherit;
-  }
+.vue3-tags-input {
+  max-width: inherit;
+}
 </style>
 <style>
 .autocomplete-list {
@@ -137,15 +124,19 @@ const filteredItems = computed(() => {
   margin: 0;
   padding: 0;
   width: 100%;
-  z-index: 1000; /* リストが他の要素の上に表示されるように */
+  z-index: 1000;
+  /* リストが他の要素の上に表示されるように */
 }
+
 .autocomplete-list li {
   padding: 8px;
   cursor: pointer;
 }
+
 .autocomplete-list li:hover {
   background: #eee;
 }
+
 .v3ti-tag {
   background: transparent;
   border: 1px solid #747373;
@@ -153,8 +144,9 @@ const filteredItems = computed(() => {
   margin-right: 4px;
   border-radius: 0px;
   font-size: 13px;
-  
+
 }
+
 .v3ti-tag::before {
   content: "#";
 }

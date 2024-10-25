@@ -18,8 +18,8 @@ class CreateArticlesTable extends Migration
 
             $table->string('title');
             $table->text('body');
-            // $table->bigInteger('user_id');教材のコード
-            $table->unsignedBigInteger('user_id'); // 修正: 外部キーに適切な型を使用
+            $table->bigInteger('user_id');//pgsql教材のコード
+            // $table->unsignedBigInteger('user_id'); // mysql修正: 外部キーに適切な型を使用
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

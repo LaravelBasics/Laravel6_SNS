@@ -27,7 +27,7 @@ class ArticleRequest extends FormRequest
         return [
             'title' => 'required|max:50',
             'body' => 'required|max:500',
-            'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
+            'tags' => 'nullable|json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
         ];
     }
 
@@ -56,7 +56,10 @@ class ArticleRequest extends FormRequest
                     return is_object($requestTag) ? $requestTag->text : $requestTag;
                 });
         } else {
-            Log::error("タグデータが配列ではありません。");
+            // Log::error("タグデータが配列ではありません。");
+            Log::error("タグデータが配列ではありません。", ['tags' => $this->tags]);
+        // デフォルト値を設定するなど、必要に応じて処理を追加
+        $this->tags = collect(); // 空のコレクションにする
         }
     }
 }
